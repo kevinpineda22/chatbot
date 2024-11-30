@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './chat.css';
+import "./chat.css";
 
 const Chatbot = () => {
   const [query, setQuery] = useState("");
@@ -22,7 +22,7 @@ const Chatbot = () => {
       const result = await axios.post("http://127.0.0.1:8000/chatbot/", {
         query: query,
       });
-      setResponse(result.data.answer);  // Respuesta del chatbot
+      setResponse(result.data.answer); // Respuesta del chatbot
     } catch (error) {
       console.error("Error al contactar el backend:", error);
       setResponse("Lo siento, ocurrió un error.");
@@ -40,14 +40,14 @@ const Chatbot = () => {
     <div>
       {/* Botón flotante del chatbot */}
       <button className="chatbot-icon" onClick={toggleChat}>
-        💬
+        <img src="/chatbot.png" alt="Chatbot Icon" />
       </button>
 
       {/* Ventana del Chat */}
       {chatOpen && (
         <div className="chatbot-container">
           <div className="chatbot-header">
-            <span>Chatbot Industrial</span>
+            <span>Bienvenido a su chatbot</span>
             <button onClick={toggleChat}>❌</button>
           </div>
           <div className="chat-messages">

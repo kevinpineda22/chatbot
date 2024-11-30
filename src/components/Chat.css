@@ -13,10 +13,10 @@
   }
   
   /* Estilo para el botón flotante */
-  .chatbot-icon {
+  .chatbot-icon  {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 20px;
     background-color: #2980b9; /* Azul */
     color: white;
     border: none;
@@ -92,6 +92,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+  .chatbot-icon img {
+    width: 40px; /* Adjust the width as needed */
+    height: 40px;
+    border-radius: 50%; /* For a circular image */
   }
   
   input[type="text"] {
