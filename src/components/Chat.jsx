@@ -4,7 +4,7 @@ import "./chat.css";
 
 const Chatbot = () => {
   const [query, setQuery] = useState("");
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
 
@@ -22,10 +22,17 @@ const Chatbot = () => {
       const result = await axios.post("http://127.0.0.1:8000/chatbot/", {
         query: query,
       });
-      setResponse(result.data.answer); // Respuesta del chatbot
+      
+      // Si la respuesta es un array, actualízalo correctamente
+      if (Array.isArray(result.data.answer)) {
+        setResponse(result.data.answer);
+      } else {
+        setResponse([result.data.answer]); // Si no es un array, lo convertimos en uno
+      }
+
     } catch (error) {
       console.error("Error al contactar el backend:", error);
-      setResponse("Lo siento, ocurrió un error.");
+      setResponse(["Lo siento, ocurrió un error."]);
     } finally {
       setLoading(false);
     }
@@ -52,9 +59,14 @@ const Chatbot = () => {
           </div>
           <div className="chat-messages">
             {/* Mensajes del chatbot */}
-            <div className="message bot-message">
-              {response || "¡Hola! ¿En qué puedo ayudarte?"}
-            </div>
+            {response.length === 0 && (
+              <div className="message bot-message">¡Hola! ¿En qué puedo ayudarte?</div>
+            )}
+            {response.map((msg, index) => (
+              <div key={index} className="message bot-message">
+                {msg}
+              </div>
+            ))}
             {loading && <div className="message bot-message">Cargando...</div>}
           </div>
           <form onSubmit={handleSubmit} className="chat-input-container">
